@@ -1,0 +1,14 @@
+# Unauthenticated
+http :8080/users/me
+
+# Authenticated with Basic Auth
+http -a hello@axgr.dev:swordfish :8080/users/me
+
+# Authenticated with Basic Auth and OTP
+http -a hello@axgr.dev:swordfish :8080/users/me otp:168147
+
+# Register new MFA device
+http -a hello@axgr.dev:swordfish :8080/tokens name="My 2FA App"
+
+# Confirm MFA device
+http -a hello@axgr.dev:swordfish :8080/tokens/confirm code=123456
