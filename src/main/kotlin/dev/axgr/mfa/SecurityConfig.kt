@@ -19,7 +19,7 @@ class SecurityConfig {
 
   //  @formatter:off
     @Bean
-    fun chain(http: HttpSecurity, config: AuthenticationConfiguration, provider: OneTimePasswordAuthProvider, users: UserService): SecurityFilterChain {
+    fun chain(http: HttpSecurity, config: AuthenticationConfiguration, users: UserService): SecurityFilterChain {
         return http
             .authorizeHttpRequests { it.anyRequest().authenticated() }
             .httpBasic(Customizer.withDefaults())
@@ -28,7 +28,6 @@ class SecurityConfig {
                 setUserDetailsService(users)
                 setPasswordEncoder(encoder())
             })
-            .authenticationProvider(provider)
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .addFilterAfter(
                 OneTimePasswordAuthFilter(config.authenticationManager, users),
